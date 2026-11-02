@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الفصل الدراسي الشخصي — أغسطس 2026</title>
-    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         :root {
             --bg-body: #0f172a;
@@ -20,27 +19,16 @@
             --text-muted: #94a3b8;
             --primary: #6366f1;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
         body {
             background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+            background-attachment: fixed;
             color: var(--text-main);
             min-height: 100vh;
             padding: 20px;
         }
+        .container { max-width: 1300px; margin: 0 auto; }
 
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        /* Header */
         header {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -54,15 +42,15 @@
             flex-wrap: wrap;
             gap: 15px;
         }
-
         header h1 {
             font-size: 1.8rem;
             font-weight: 800;
             background: linear-gradient(45deg, #a855f7, #6366f1);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
+        .header-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
         .date-badge {
             background: rgba(99, 102, 241, 0.2);
             color: #818cf8;
@@ -71,16 +59,18 @@
             font-size: 0.9rem;
             border: 1px solid rgba(99, 102, 241, 0.3);
         }
-
-        /* Navigation Tabs */
-        .nav-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-            overflow-x: auto;
-            padding-bottom: 5px;
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--card-border);
+            padding: 8px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.85rem;
         }
+        .btn-ghost:hover { color: #fff; border-color: var(--primary); }
 
+        .nav-tabs { display: flex; gap: 10px; margin-bottom: 25px; overflow-x: auto; padding-bottom: 5px; }
         .tab-btn {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -95,30 +85,34 @@
             gap: 8px;
             white-space: nowrap;
         }
-
         .tab-btn:hover, .tab-btn.active {
             background: var(--primary);
             color: #fff;
             border-color: var(--primary);
             box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
         }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
-        /* Section Visibility */
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
+        h2.section-title { margin: 28px 0 15px; font-size: 1.3rem; }
 
-        /* Courses Progress Cards */
+        /* Overall progress */
+        .overall {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 20px;
+        }
+        .overall-head { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 700; }
+
+        /* Course cards */
         .courses-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
-
         .course-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -128,83 +122,36 @@
             position: relative;
             overflow: hidden;
         }
-
-        .course-card::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; width: 6px; height: 100%;
-        }
-
+        .course-card::before { content: ''; position: absolute; top: 0; right: 0; width: 6px; height: 100%; }
         .course-card.novel::before { background: var(--accent-novel); }
         .course-card.aesthetic::before { background: var(--accent-aesthetic); }
         .course-card.ethno::before { background: var(--accent-ethno); }
-
-        .course-title {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .course-title { font-size: 1.2rem; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; font-weight: 700; }
+        .course-outputs { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.6; }
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+        .chip {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--card-border);
+            color: #cbd5e1;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
         }
-
-        .course-outputs {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        .progress-bar-bg {
-            background: rgba(255, 255, 255, 0.1);
-            height: 10px;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 8px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            transition: width 0.5s ease;
-            border-radius: 10px;
-        }
-
+        .progress-bar-bg { background: rgba(255, 255, 255, 0.1); height: 10px; border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+        .progress-fill { height: 100%; width: 0%; transition: width 0.5s ease; border-radius: 10px; background: var(--primary); }
         .novel .progress-fill { background: var(--accent-novel); }
         .aesthetic .progress-fill { background: var(--accent-aesthetic); }
         .ethno .progress-fill { background: var(--accent-ethno); }
+        .progress-text { font-size: 0.8rem; display: flex; justify-content: space-between; color: var(--text-muted); }
 
-        .progress-text {
-            font-size: 0.8rem;
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-muted);
-        }
-
-        /* Board View (Kanban) */
-        .kanban-board {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .kanban-col {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 15px;
-        }
-
+        /* Kanban */
+        .kanban-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .kanban-col { background: rgba(15, 23, 42, 0.6); border: 1px solid var(--card-border); border-radius: 16px; padding: 15px; }
         .kanban-header {
-            font-size: 1.1rem;
-            font-weight: 700;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+            font-size: 1.1rem; font-weight: 700; padding-bottom: 10px; margin-bottom: 15px;
             border-bottom: 2px solid var(--card-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
         }
-
         .task-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -212,160 +159,137 @@
             border-radius: 12px;
             margin-bottom: 12px;
             transition: transform 0.2s;
+            cursor: pointer;
         }
-
-        .task-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .task-tag {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
+        .task-card:hover { transform: translateY(-2px); }
+        .task-tag { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 8px; margin-left: 6px; }
         .tag-novel { background: rgba(236, 72, 153, 0.2); color: var(--accent-novel); }
         .tag-aesthetic { background: rgba(139, 92, 246, 0.2); color: var(--accent-aesthetic); }
         .tag-ethno { background: rgba(16, 185, 129, 0.2); color: var(--accent-ethno); }
-
-        .task-title {
-            font-size: 0.95rem;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .task-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .task-checkbox {
+        .tag-phase { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; }
+        .task-title { font-size: 0.95rem; margin-bottom: 10px; font-weight: 500; line-height: 1.6; }
+        .task-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted); gap: 8px; flex-wrap: wrap; }
+        .task-actions { display: flex; gap: 6px; margin-top: 10px; }
+        .btn-small {
+            background: rgba(99, 102, 241, 0.2);
+            color: #c7d2fe;
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            padding: 5px 12px;
+            border-radius: 8px;
             cursor: pointer;
-            width: 18px;
-            height: 18px;
-            accent-color: var(--primary);
+            font-size: 0.78rem;
+        }
+        .btn-small:hover { background: var(--primary); color: #fff; }
+        .empty-note { color: var(--text-muted); font-size: 0.9rem; padding: 10px 4px; }
+
+        /* Filters */
+        .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
+        .filters select {
+            background: rgba(15, 23, 42, 0.8);
+            color: #fff;
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 9px 12px;
         }
 
-        /* Resources Styles */
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
+        /* Table */
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 12px; overflow: hidden; }
+        th, td { padding: 14px 18px; text-align: right; border-bottom: 1px solid var(--card-border); font-size: 0.9rem; }
+        th { background: rgba(15, 23, 42, 0.9); color: var(--text-muted); font-weight: 700; white-space: nowrap; }
+        tbody tr { cursor: pointer; }
+        tbody tr:hover { background: rgba(255, 255, 255, 0.04); }
+        .status-pill { padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+        .st-todo { background: rgba(100, 116, 139, 0.25); color: #cbd5e1; }
+        .st-doing { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+        .st-done { background: rgba(16, 185, 129, 0.2); color: #34d399; }
 
-        .resource-group {
+        /* Course view */
+        .pills { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+        .pill {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .pill.active { color: #fff; border-color: var(--primary); background: var(--primary); }
+        .course-info {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
             padding: 20px;
+            margin-bottom: 20px;
         }
-
-        .resource-group h3 {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            border-bottom: 1px solid var(--card-border);
-            padding-bottom: 8px;
-        }
-
-        .resource-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            color: #38bdf8;
-            text-decoration: none;
-            margin-bottom: 8px;
-            transition: background 0.2s;
-            font-size: 0.9rem;
-        }
-
-        .resource-link:hover {
-            background: rgba(255, 255, 255, 0.08);
-            text-decoration: underline;
-        }
-
-        /* Evaluation Section */
-        .eval-card {
+        .course-info h3 { margin-bottom: 8px; font-size: 1.05rem; }
+        .course-info ul { padding-right: 20px; color: #cbd5e1; line-height: 1.9; font-size: 0.92rem; margin-bottom: 14px; }
+        .week-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 25px;
-            max-width: 800px;
-            margin: 0 auto;
+            padding: 18px 20px;
+            margin-bottom: 14px;
         }
+        .week-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+        .week-head strong { font-size: 1rem; }
+        .week-line { font-size: 0.9rem; color: #cbd5e1; margin-bottom: 6px; line-height: 1.7; }
+        .week-line b { color: #fff; }
 
-        .form-group {
-            margin-bottom: 20px;
+        /* Resources */
+        .resources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        .resource-group { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; }
+        .resource-group h3 { margin-bottom: 6px; font-size: 1.1rem; }
+        .resource-group h4 { margin: 14px 0 8px; font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid var(--card-border); padding-bottom: 5px; }
+        .resource-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .resource-row input { width: 18px; height: 18px; accent-color: var(--primary); flex-shrink: 0; cursor: pointer; }
+        .resource-link {
+            display: flex; align-items: center; gap: 10px; padding: 10px;
+            background: rgba(255, 255, 255, 0.03); border-radius: 8px; color: #38bdf8;
+            text-decoration: none; transition: background 0.2s; font-size: 0.88rem; flex: 1; line-height: 1.5;
         }
+        .resource-link:hover { background: rgba(255, 255, 255, 0.08); text-decoration: underline; }
+        .resource-row.read .resource-link { opacity: 0.55; }
+        .lang-tag { font-size: 0.65rem; background: rgba(255, 255, 255, 0.1); padding: 1px 6px; border-radius: 6px; color: #cbd5e1; margin-right: auto; }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #cbd5e1;
-        }
-
+        /* Evaluation */
+        .eval-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 25px; max-width: 800px; margin: 0 auto 25px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #cbd5e1; }
         .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 12px;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            color: #fff;
-            resize: vertical;
+            width: 100%; padding: 12px; background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--card-border); border-radius: 8px; color: #fff; resize: vertical;
         }
+        .rubric { border: 1px dashed rgba(168, 85, 247, 0.5); border-radius: 12px; padding: 16px; margin-bottom: 20px; display: none; }
+        .rubric.show { display: block; }
+        .rubric h4 { margin-bottom: 12px; color: #c4b5fd; }
+        .btn-submit { background: var(--primary); color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: opacity 0.2s; }
+        .btn-submit:hover { opacity: 0.9; }
+        .saved-eval { background: rgba(15, 23, 42, 0.6); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; font-size: 0.88rem; line-height: 1.8; }
+        .saved-eval b { color: #c4b5fd; }
 
-        .btn-submit {
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
+        /* Modal */
+        .modal-bg { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.75); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 50; }
+        .modal-bg.show { display: flex; }
+        .modal { background: #1e293b; border: 1px solid var(--card-border); border-radius: 18px; max-width: 640px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 24px; }
+        .modal h3 { margin-bottom: 10px; font-size: 1.15rem; line-height: 1.6; }
+        .modal textarea { width: 100%; padding: 12px; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--card-border); border-radius: 8px; color: #fff; resize: vertical; margin-bottom: 14px; }
+        .modal select { background: rgba(15, 23, 42, 0.8); color: #fff; border: 1px solid var(--card-border); border-radius: 8px; padding: 8px 10px; margin-bottom: 14px; }
+        .stars { display: flex; gap: 6px; margin-bottom: 14px; }
+        .stars button { background: none; border: none; font-size: 1.5rem; color: #475569; cursor: pointer; }
+        .stars button.on { color: #facc15; }
+        .modal-actions { display: flex; gap: 10px; justify-content: flex-start; margin-top: 6px; }
+        .modal-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; display: block; }
 
-        .btn-submit:hover {
-            opacity: 0.9;
+        .toast {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+            background: #334155; color: #fff; padding: 10px 20px; border-radius: 30px;
+            font-size: 0.9rem; z-index: 99; opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
-
-        /* Table View */
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 14px 18px;
-            text-align: right;
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        th {
-            background: rgba(15, 23, 42, 0.9);
-            color: var(--text-muted);
-            font-weight: 700;
-        }
-
-        tr:hover {
-            background: rgba(255, 255, 255, 0.02);
-        }
+        .toast.show { opacity: 1; }
+        .term-note { background: rgba(250, 204, 21, 0.1); border: 1px solid rgba(250, 204, 21, 0.3); color: #fde68a; padding: 12px 16px; border-radius: 12px; margin-bottom: 15px; font-size: 0.9rem; }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 30px; padding-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -374,228 +298,656 @@
     <header>
         <div>
             <h1>الفصل الدراسي الشخصي</h1>
-            <p style="color: var(--text-muted); margin-top: 5px;">أغسطس 2026 — مسار التعلم الذاتي</p>
+            <p style="color: var(--text-muted); margin-top: 5px;">أغسطس 2026 — مسار التعلم الذاتي (6 أسابيع)</p>
         </div>
-        <div class="date-badge">
-            <i class="fa-regular fa-calendar-days"></i> 27 يوليو – 7 سبتمبر 2026
+        <div class="header-actions">
+            <div class="date-badge"><i class="fa-regular fa-calendar-days"></i> 27 يوليو – 7 سبتمبر 2026</div>
+            <button class="btn-ghost" onclick="exportData()"><i class="fa-solid fa-download"></i> نسخة احتياطية</button>
+            <button class="btn-ghost" onclick="document.getElementById('importFile').click()"><i class="fa-solid fa-upload"></i> استيراد</button>
+            <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
         </div>
     </header>
 
-    <!-- Navigation -->
     <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> الصفحة الرئيسية</button>
-        <button class="tab-btn" onclick="switchTab('board')"><i class="fa-solid fa-list-check"></i> لوحة المهام (Kanban)</button>
-        <button class="tab-btn" onclick="switchTab('table')"><i class="fa-solid fa-table"></i> الجدول الكامل</button>
-        <button class="tab-btn" onclick="switchTab('resources')"><i class="fa-solid fa-book-bookmark"></i> المصادر والمراجع</button>
-        <button class="tab-btn" onclick="switchTab('eval')"><i class="fa-solid fa-pen-to-square"></i> التقييم الأسبوعي</button>
+        <button class="tab-btn active" data-tab="dashboard" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> الصفحة الرئيسية</button>
+        <button class="tab-btn" data-tab="courses" onclick="switchTab('courses')"><i class="fa-solid fa-graduation-cap"></i> المقررات</button>
+        <button class="tab-btn" data-tab="board" onclick="switchTab('board')"><i class="fa-solid fa-list-check"></i> لوحة المهام (Kanban)</button>
+        <button class="tab-btn" data-tab="table" onclick="switchTab('table')"><i class="fa-solid fa-table"></i> الجدول الكامل</button>
+        <button class="tab-btn" data-tab="resources" onclick="switchTab('resources')"><i class="fa-solid fa-book-bookmark"></i> المصادر والمراجع</button>
+        <button class="tab-btn" data-tab="eval" onclick="switchTab('eval')"><i class="fa-solid fa-pen-to-square"></i> التقييم الأسبوعي</button>
     </div>
 
-    <!-- TAB: DASHBOARD -->
+    <!-- DASHBOARD -->
     <div id="dashboard" class="tab-content active">
-        <div class="courses-grid">
-            <!-- Novel -->
-            <div class="course-card novel">
-                <div class="course-title">
-                    <span>كتابة الرواية</span>
-                    <i class="fa-solid fa-book-open" style="color: var(--accent-novel);"></i>
-                </div>
-                <div class="course-outputs">
-                    <strong>المخرجات:</strong> خط زمني كامل للأحداث، تشخيص مكتوب لمشاكل الحبكة، تطبيق أدوات التحليل السردي على تنقيح فعلي.
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-fill" id="prog-novel"></div>
-                </div>
-                <div class="progress-text">
-                    <span>نسبة الإنجاز</span>
-                    <span id="prog-text-novel">0%</span>
-                </div>
-            </div>
-
-            <!-- Aesthetic -->
-            <div class="course-card aesthetic">
-                <div class="course-title">
-                    <span>استيتك الصيف</span>
-                    <i class="fa-solid fa-palette" style="color: var(--accent-aesthetic);"></i>
-                </div>
-                <div class="course-outputs">
-                    <strong>المخرجات:</strong> موودبورد لهوية بصرية واضحة + Lookbook من أعمال منتهية.
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-fill" id="prog-aesthetic"></div>
-                </div>
-                <div class="progress-text">
-                    <span>نسبة الإنجاز</span>
-                    <span id="prog-text-aesthetic">0%</span>
-                </div>
-            </div>
-
-            <!-- Ethno -->
-            <div class="course-card ethno">
-                <div class="course-title">
-                    <span>إثنوغرافيا الكافيهات</span>
-                    <i class="fa-solid fa-mug-saucer" style="color: var(--accent-ethno);"></i>
-                </div>
-                <div class="course-outputs">
-                    <strong>المخرجات:</strong> فهم أدوات الإثنوغرافيا الرقمية، تطبيق نظريات المكان الثالث ورأس المال الثقافي، تقرير متكامل.
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-fill" id="prog-ethno"></div>
-                </div>
-                <div class="progress-text">
-                    <span>نسبة الإنجاز</span>
-                    <span id="prog-text-ethno">0%</span>
-                </div>
-            </div>
+        <div class="overall">
+            <div class="overall-head"><span>التقدم الكلي للفصل</span><span id="overall-text">0%</span></div>
+            <div class="progress-bar-bg" style="margin-bottom:0"><div class="progress-fill" id="overall-fill"></div></div>
         </div>
+        <div class="courses-grid" id="home-courses"></div>
 
-        <h2 style="margin-bottom: 15px; font-size: 1.3rem;">نظرة عامة على المهام القادمة</h2>
-        <div class="kanban-board" id="dashboard-tasks-preview">
-            <!-- Will be dynamically populated with pending tasks -->
-        </div>
+        <h2 class="section-title" id="current-week-title">مهام هذا الأسبوع</h2>
+        <div id="term-note"></div>
+        <div class="kanban-board" id="dashboard-tasks-preview"></div>
+
+        <h2 class="section-title">آخر الملاحظات التأمّلية</h2>
+        <div id="recent-notes"></div>
     </div>
 
-    <!-- TAB: KANBAN BOARD -->
+    <!-- COURSES -->
+    <div id="courses" class="tab-content">
+        <div class="pills" id="course-pills"></div>
+        <div id="course-view"></div>
+    </div>
+
+    <!-- KANBAN -->
     <div id="board" class="tab-content">
         <div class="kanban-board">
             <div class="kanban-col">
-                <div class="kanban-header">
-                    <span><i class="fa-regular fa-circle" style="color: #64748b;"></i> قيد الانتظار</span>
-                    <span id="count-todo" class="date-badge">0</span>
-                </div>
+                <div class="kanban-header"><span><i class="fa-regular fa-circle" style="color:#64748b;"></i> قيد الانتظار</span><span id="count-todo" class="date-badge">0</span></div>
                 <div id="col-todo"></div>
             </div>
-
             <div class="kanban-col">
-                <div class="kanban-header">
-                    <span><i class="fa-solid fa-spinner" style="color: #38bdf8;"></i> جاري العمل</span>
-                    <span id="count-doing" class="date-badge">0</span>
-                </div>
+                <div class="kanban-header"><span><i class="fa-solid fa-spinner" style="color:#38bdf8;"></i> جاري العمل</span><span id="count-doing" class="date-badge">0</span></div>
                 <div id="col-doing"></div>
             </div>
-
             <div class="kanban-col">
-                <div class="kanban-header">
-                    <span><i class="fa-regular fa-circle-check" style="color: #10b981;"></i> مكتملة</span>
-                    <span id="count-done" class="date-badge">0</span>
-                </div>
+                <div class="kanban-header"><span><i class="fa-regular fa-circle-check" style="color:#10b981;"></i> مكتملة</span><span id="count-done" class="date-badge">0</span></div>
                 <div id="col-done"></div>
             </div>
         </div>
     </div>
 
-    <!-- TAB: TABLE VIEW -->
+    <!-- TABLE -->
     <div id="table" class="tab-content">
+        <div class="filters">
+            <select id="f-course" onchange="renderTable()"></select>
+            <select id="f-phase" onchange="renderTable()"></select>
+            <select id="f-status" onchange="renderTable()"></select>
+        </div>
         <div class="table-responsive">
             <table>
                 <thead>
                     <tr>
-                        <th>المادة</th>
-                        <th>الأسبوع</th>
-                        <th>التاريخ</th>
-                        <th>المرحلة</th>
-                        <th>المهمة</th>
-                        <th>الحالة</th>
+                        <th>المادة</th><th>الأسبوع</th><th>التاريخ</th><th>المرحلة</th><th>الموضوع</th><th>المهمة</th><th>المخرج المطلوب</th><th>الحالة</th>
                     </tr>
                 </thead>
-                <tbody id="tasks-table-body">
-                    <!-- Dynamic Table Rows -->
-                </tbody>
+                <tbody id="tasks-table-body"></tbody>
             </table>
         </div>
     </div>
 
-    <!-- TAB: RESOURCES -->
+    <!-- RESOURCES -->
     <div id="resources" class="tab-content">
-        <div class="resources-grid" id="resources-container">
-            <!-- Dynamic Resources -->
+        <div class="filters">
+            <select id="r-course" onchange="renderResources()"></select>
+            <select id="r-type" onchange="renderResources()"></select>
+            <select id="r-read" onchange="renderResources()"></select>
         </div>
+        <div class="resources-grid" id="resources-container"></div>
     </div>
 
-    <!-- TAB: EVALUATION -->
+    <!-- EVALUATION -->
     <div id="eval" class="tab-content">
         <div class="eval-card">
             <h2 style="margin-bottom: 20px; color: #a855f7;"><i class="fa-solid fa-clipboard-question"></i> التقييم الأسبوعي الذاتي</h2>
             <form id="evalForm" onsubmit="saveEvaluation(event)">
                 <div class="form-group">
                     <label>اختر الأسبوع:</label>
-                    <select id="evalWeek" required>
-                        <option value="أ1">الأسبوع 1 (27 يوليو - 2 أغسطس)</option>
-                        <option value="أ2">الأسبوع 2 (3 - 9 أغسطس)</option>
-                        <option value="أ3">الأسبوع 3 (10 - 16 أغسطس)</option>
-                        <option value="أ4">الأسبوع 4 (17 - 23 أغسطس)</option>
-                        <option value="أ5">الأسبوع 5 (24 - 30 أغسطس)</option>
-                        <option value="أ6">الأسبوع 6 (31 أغسطس - 6 سبتمبر)</option>
-                    </select>
+                    <select id="evalWeek" required onchange="loadEvalForm()"></select>
                 </div>
                 <div class="form-group">
-                    <label>1. ما الذي تم إنجازه بنجاح هذا الأسبوع؟</label>
-                    <textarea id="q1" rows="3" required placeholder="اكتب المخرجات والمهام التي أتممتها..."></textarea>
+                    <label>1. هل أنجزت المهمة الأساسية؟ ما الذي تم إنجازه بنجاح هذا الأسبوع؟</label>
+                    <textarea id="q1" rows="3" required placeholder="اكتبي المخرجات والمهام التي أتممتيها..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label>2. ما هي العوائق والتحديات التي ظهرت؟</label>
+                    <label>2. ما الذي أخذ وقتًا أطول من المتوقع؟ ما العوائق والتحديات؟</label>
                     <textarea id="q2" rows="3" required placeholder="المشاكل الفنية، التشتت، المفاهيم الصعبة..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label>3. ما هي التعديلات المطلوبة للخطة القادمة؟</label>
-                    <textarea id="q3" rows="3" required placeholder="كيف ستطور أداءك للأسبوع القادم؟"></textarea>
+                    <label>3. هل أحتاج تعديل جدول الأسبوع القادم؟ ما التعديلات المطلوبة؟</label>
+                    <textarea id="q3" rows="3" required placeholder="كيف سأطور الأداء للأسبوع القادم؟"></textarea>
                 </div>
-                <button type="submit" class="btn-submit">حفظ التقييم local</button>
+                <div class="rubric" id="rubric">
+                    <h4><i class="fa-solid fa-award"></i> تقييم نهاية المرحلة (مشروع / تخرج)</h4>
+                    <div class="form-group">
+                        <label>الالتزام بالجدول (1-5)</label>
+                        <select id="rub1"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>جودة المخرج النهائي (1-5)</label>
+                        <select id="rub2"></select>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0">
+                        <label>الرضا الشخصي عن النتيجة (1-5)</label>
+                        <select id="rub3"></select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">حفظ التقييم</button>
             </form>
         </div>
+        <h2 class="section-title" style="max-width:800px;margin:0 auto 15px;">التقييمات المحفوظة</h2>
+        <div id="saved-evals" style="max-width:800px;margin:0 auto;"></div>
     </div>
 
+    <footer>البيانات تُحفظ في متصفحك فقط. استخدمي زر "نسخة احتياطية" لنقلها بين الأجهزة.</footer>
 </div>
 
+<!-- Task modal -->
+<div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()">
+    <div class="modal" id="modalBody"></div>
+</div>
+<div class="toast" id="toast"></div>
+
 <script>
-    // Data Structure
-    const tasksData = [
-        // Novel
-        { id: 1, course: 'novel', week: 'أ1', date: '27يوليو-2أغسطس', phase: 'تعلّم', title: 'قراءة عن بنية السرد فقط، بدون واجب', status: 'todo' },
-        { id: 2, course: 'novel', week: 'أ2', date: '3-9أغسطس', phase: 'تعلّم', title: 'مراجعة المسودة الحالية + بدء الخط الزمني', status: 'todo' },
-        { id: 3, course: 'novel', week: 'أ3', date: '10-16أغسطس', phase: 'تعلّم', title: 'إكمال الخط الزمني + قائمة مشاكل الحبكة', status: 'todo' },
-        { id: 4, course: 'novel', week: 'أ4', date: '17-23أغسطس', phase: 'مشروع', title: 'تنقيح فعلي لفصل من الرواية', status: 'todo' },
-        { id: 5, course: 'novel', week: 'أ5', date: '24-30أغسطس', phase: 'مكثف', title: 'تطبيق التحليل السردي على كامل الحبكة', status: 'todo' },
-        { id: 6, course: 'novel', week: 'أ6', date: '31أغسطس-6سبتمبر', phase: 'تخرج', title: 'تسليم الخط الزمني النهائي + وثيقة التشخيص + خطة التنقيح', status: 'todo' },
-        
-        // Aesthetic
-        { id: 7, course: 'aesthetic', week: 'أ1', date: '27يوليو-2أغسطس', phase: 'تعلّم', title: 'قراءة عن نظرية اللون فقط', status: 'todo' },
-        { id: 8, course: 'aesthetic', week: 'أ2', date: '3-9أغسطس', phase: 'تعلّم', title: 'جمع موودبورد مرجعي أولي', status: 'todo' },
-        { id: 9, course: 'aesthetic', week: 'أ3', date: '10-16أغسطس', phase: 'تعلّم', title: 'تحديد الهوية البصرية + أول مجموعة صور تجريبية', status: 'todo' },
-        { id: 10, course: 'aesthetic', week: 'أ4', date: '17-23أغسطس', phase: 'مشروع', title: 'جلسة تصوير مركّزة (كافيه فعلي)', status: 'todo' },
-        { id: 11, course: 'aesthetic', week: 'أ5', date: '24-30أغسطس', phase: 'مكثف', title: 'تحرير كامل مجموعة الصور', status: 'todo' },
-        { id: 12, course: 'aesthetic', week: 'أ6', date: '31أغسطس-6سبتمبر', phase: 'تخرج', title: 'موودبورد نهائي + Lookbook', status: 'todo' },
+    // ---------- Data ----------
+    const STORE_KEY = 'personalCurriculum2026';
+    const STATUS = { todo: 'قيد الانتظار', doing: 'جاري العمل', done: 'مكتملة' };
+    const TYPES = { article: 'مقال', youtube: 'يوتيوب', podcast: 'بودكاست', paper: 'ورقة أكاديمية', wiki: 'ويكيبيديا', guide: 'دليل' };
+    const TYPE_ICONS = {
+        article: 'fa-solid fa-newspaper', youtube: 'fa-brands fa-youtube', podcast: 'fa-solid fa-podcast',
+        paper: 'fa-solid fa-graduation-cap', wiki: 'fa-brands fa-wikipedia-w', guide: 'fa-solid fa-book-open'
+    };
 
-        // Ethno
-        { id: 13, course: 'ethno', week: 'أ1', date: '27يوليو-2أغسطس', phase:
-    function updateStatus(id, newStatus) {
-        const task = localTasks.find(t => t.id === id);
-        if (task) {
-            task.status = newStatus;
-            saveTasks();
+    const WEEKS = [
+        { n: 1, id: 'أ1', start: '2026-07-27', end: '2026-08-02', label: '27 يوليو – 2 أغسطس', phase: 'تعلّم' },
+        { n: 2, id: 'أ2', start: '2026-08-03', end: '2026-08-09', label: '3 – 9 أغسطس', phase: 'تعلّم' },
+        { n: 3, id: 'أ3', start: '2026-08-10', end: '2026-08-16', label: '10 – 16 أغسطس', phase: 'تعلّم' },
+        { n: 4, id: 'أ4', start: '2026-08-17', end: '2026-08-23', label: '17 – 23 أغسطس', phase: 'مشروع' },
+        { n: 5, id: 'أ5', start: '2026-08-24', end: '2026-08-30', label: '24 – 30 أغسطس', phase: 'مكثف' },
+        { n: 6, id: 'أ6', start: '2026-08-31', end: '2026-09-06', label: '31 أغسطس – 6 سبتمبر', phase: 'تخرج' }
+    ];
+    const RUBRIC_PHASES = ['مشروع', 'تخرج'];
+
+    const r = (title, url, type, lang) => ({ title, url, type, lang: lang || 'ع' });
+
+    const COURSES = {
+        novel: {
+            name: 'كتابة الرواية — الطريق للبيت',
+            short: 'كتابة الرواية',
+            icon: 'fa-solid fa-book-open',
+            color: 'var(--accent-novel)',
+            outcomes: [
+                'خط زمني كامل ومُحكم لأحداث الرواية',
+                'تشخيص واضح ومكتوب لنقاط ضعف الحبكة',
+                'إتقان أدوات التحليل السردي/النوعي وتطبيقها على تنقيح فصل من الرواية'
+            ],
+            topics: ['بنية السرد (حبكة مقابل قصة)', 'تشخيص مشاكل الحبكة (الإيقاع، دوافع الشخصيات)', 'التحليل السردي والمنهج النوعي (Narrative Inquiry)', 'التطبيق العملي على التنقيح'],
+            weeks: [
+                { topic: 'بنية السرد الأساسية (حبكة مقابل قصة)', task: 'قراءة فقط، بدون واجب كتابي (تمهيد خفيف)', deliverable: 'لا يوجد واجب كتابي',
+                  resources: [
+                    r('الحبكة الروائيّة وأهمّيّتها في هندسة الرواية', 'https://engage.moc.gov.sa/saudi-criticism-lab/articles-and-studies/article/?item_id=458', 'article'),
+                    r('مفاهيم أدبية: الحبكة الروائية', 'https://annabaa.org/arabic/literature/33961', 'article'),
+                    r('What is the Plot of a Story? Plot Structures & Devices', 'https://writers.com/what-is-the-plot-of-a-story', 'article', 'EN'),
+                    r('محاضرة براندون ساندرسون #2 — Plot Part 1', 'https://www.youtube.com/watch?v=jrIogch5DBU', 'youtube', 'EN')
+                  ] },
+                { topic: 'استكمال: مراجعة المسودة وبدء الخط الزمني', task: 'مراجعة مسودة «الطريق للبيت» الحالية + بدء رسم الخط الزمني للأحداث', deliverable: 'نسخة أولية من الخط الزمني',
+                  resources: [
+                    r('محاضرة ساندرسون #3 — Story Structures', 'https://www.youtube.com/watch?v=SyuJI8xU0gc', 'youtube', 'EN'),
+                    r('A Compendium of Novel Structure Resources', 'https://stormwritingschool.com/a-compendium-of-novel-structure-resources/', 'article', 'EN')
+                  ] },
+                { topic: 'تشخيص مشاكل الحبكة (الإيقاع، دوافع الشخصيات)', task: 'إكمال الخط الزمني + كتابة قائمة بمشاكل الحبكة المكتشفة (نقاط الترهّل، ضعف الدوافع)', deliverable: 'خط زمني مكتمل + قائمة مشاكل الحبكة',
+                  resources: [
+                    r('الحبكة… سؤال الرواية الدرامي (القدس العربي)', 'https://www.alquds.co.uk/%EF%BB%BF%D8%A7%D9%84%D8%AD%D8%A8%D9%83%D8%A9-%D8%B3%D8%A4%D8%A7%D9%84-%D8%A7%D9%84%D8%B1%D9%88%D8%A7%D9%8A%D8%A9-%D8%A7%D9%84%D8%AF%D8%B1%D8%A7%D9%85%D9%8A/', 'article')
+                  ] },
+                { topic: 'التطبيق العملي على التنقيح', task: 'تنقيح فعلي لفصل أو قسم كامل من الرواية بناءً على التشخيص', deliverable: 'فصل/قسم منقّح',
+                  resources: [
+                    r('بودكاست كتابة — محمد الضبع', 'https://podcasts.apple.com/is/podcast/%D8%A8%D9%88%D8%AF%D9%83%D8%A7%D8%B3%D8%AA-%D9%83%D8%AA%D8%A7%D8%A8%D8%A9/id1850102019', 'podcast'),
+                    r('Writing Excuses — Story Structure', 'https://writingexcuses.com/tag/story-structure/', 'podcast', 'EN')
+                  ] },
+                { topic: 'تعميق التحليل السردي/النوعي', task: 'تطبيق أدوات التحليل السردي على كامل خيوط الحبكة، وليس فصلًا واحدًا', deliverable: 'تحليل سردي شامل لخيوط الحبكة',
+                  resources: [
+                    r('Narrative Inquiry (EBSCO Research Starters)', 'https://www.ebsco.com/research-starters/social-sciences-and-humanities/narrative-inquiry', 'article', 'EN')
+                  ] },
+                { topic: 'التسليم النهائي', task: 'تسليم الخط الزمني النهائي المنقّح + وثيقة التشخيص الشاملة + خطة التنقيح للمرحلة القادمة', deliverable: 'خط زمني نهائي + وثيقة تشخيص + خطة تنقيح',
+                  resources: [] }
+            ]
+        },
+        aesthetic: {
+            name: 'استيتك الصيف',
+            short: 'استيتك الصيف',
+            icon: 'fa-solid fa-palette',
+            color: 'var(--accent-aesthetic)',
+            outcomes: [
+                'دليل بصري شخصي (موودبورد) لهوية استيتك واضحة ومتماسكة',
+                'مجموعة أعمال بصرية منتهية (Lookbook) تطبَّق عمليًا'
+            ],
+            topics: ['نظرية اللون وعجلة الألوان', 'الاتجاهات البصرية الحالية', 'تحديد الهوية البصرية الشخصية', 'مبادئ التكوين والتصوير', 'التحرير وما بعد الإنتاج'],
+            weeks: [
+                { topic: 'نظرية اللون', task: 'قراءة فقط، بدون واجب (تمهيد خفيف)', deliverable: 'لا يوجد واجب',
+                  resources: [
+                    r('نظرية الألوان لغير المصممين (أكاديمية حسوب)', 'https://academy.hsoub.com/design/graphic/%D9%83%D9%84-%D9%85%D8%A7-%D9%8A%D8%AC%D8%A8-%D8%B9%D9%84%D9%8A%D9%83-%D9%85%D8%B9%D8%B1%D9%81%D8%AA%D9%87-%D8%B9%D9%86-%D9%86%D8%B8%D8%B1%D9%8A%D8%A9-%D8%A7%D9%84%D8%A3%D9%84%D9%88%D8%A7%D9%86-%D9%84%D8%BA%D9%8A%D8%B1-%D8%A7%D9%84%D9%85%D8%B5%D9%85%D9%85%D9%8A%D9%86-r565/', 'article'),
+                    r('نظرية الألوان: كيف تختار الألوان المناسبة (خمسات)', 'https://blog.khamsat.com/color-theory-guide/', 'article'),
+                    r('Color Theory for Photographers (Kolari)', 'https://kolarivision.com/color-theory-for-photographers/', 'article', 'EN')
+                  ] },
+                { topic: 'استكمال: بحث الاتجاهات البصرية', task: 'جمع موودبورد مرجعي أولي (Pinterest أو أرشيف صور)', deliverable: 'موودبورد مرجعي أولي',
+                  resources: [
+                    r('Color Theory: An Introduction to the Color Wheel (500px)', 'https://iso.500px.com/color-theory-photographers-introduction-color-wheel/', 'article', 'EN')
+                  ] },
+                { topic: 'تحديد الهوية البصرية والتكوين', task: 'تحديد هويتك البصرية الخاصة + أول مجموعة صور تجريبية', deliverable: 'وثيقة الهوية البصرية + أول مجموعة صور تجريبية',
+                  resources: [
+                    r('How to Make an Aesthetic Mood Board (StudioBinder)', 'https://www.studiobinder.com/blog/how-to-make-an-aesthetic-mood-board/', 'article', 'EN')
+                  ] },
+                { topic: 'جلسة تصوير مركّزة', task: 'جلسة تصوير تطبّق التكوين المتعلَّم (كافيه فعلي، بتقاطع مباشر مع مادة الإثنوغرافيا)', deliverable: 'مجموعة صور من جلسة التصوير',
+                  resources: [
+                    r('How to Create an Aesthetic Mood Board | Style Sourcebook', 'https://www.youtube.com/watch?v=piYN7dkhJ48', 'youtube', 'EN'),
+                    r('2021 Moodboard Tutorial (Pinterest + Canva)', 'https://www.youtube.com/watch?v=MKqemHujxBE', 'youtube', 'EN')
+                  ] },
+                { topic: 'التحرير وما بعد الإنتاج', task: 'تحرير كامل مجموعة الصور (ألوان، قص، فلاتر)', deliverable: 'مجموعة صور محررة',
+                  resources: [
+                    r('a guide to making ~aesthetic~ moodboards', 'https://www.youtube.com/watch?v=RHFb2jtS2v8', 'youtube', 'EN'),
+                    r('How to Moodboard (and build a cult following)', 'https://www.youtube.com/watch?v=Tu1Y_4MIcuQ', 'youtube', 'EN')
+                  ] },
+                { topic: 'التسليم النهائي', task: 'موودبورد نهائي متكامل + Lookbook من الأعمال المنتهية', deliverable: 'موودبورد نهائي + Lookbook',
+                  resources: [] }
+            ]
+        },
+        ethno: {
+            name: 'إثنوغرافيا رقمية: ثقافة الكافيهات على تيك توك',
+            short: 'إثنوغرافيا الكافيهات',
+            icon: 'fa-solid fa-mug-saucer',
+            color: 'var(--accent-ethno)',
+            outcomes: [
+                'فهم عملي لأدوات الإثنوغرافيا الرقمية وأخلاقياتها',
+                'تطبيق أطر نظرية (المكان الثالث، الاستهلاك كهوية، رأس المال الثقافي) على محتوى حقيقي',
+                'إنتاج تقرير إثنوغرافي متكامل'
+            ],
+            topics: ['أساسيات الإثنوغرافيا الرقمية والأخلاقيات', 'اختيار الحقل وتقنيات الملاحظة', 'نظرية المكان الثالث والاستهلاك كهوية', 'الترميز الموضوعي وكتابة التقرير'],
+            weeks: [
+                { topic: 'أساسيات الإثنوغرافيا الرقمية', task: 'قراءة فقط، بدون واجب (تمهيد خفيف)', deliverable: 'لا يوجد واجب',
+                  resources: [
+                    r('Digital Ethnography: A Practical Guide to Online Qualitative Research', 'https://qualitativeresearchers.com/blog/digital-ethnography-guide/', 'guide', 'EN'),
+                    r('الإثنوغرافية الافتراضية وإسقاطاتها في دراسة المحتوى الثقافي', 'https://asjp.cerist.dz/en/article/226840', 'paper')
+                  ] },
+                { topic: 'اختيار الحقل والهاشتاقات', task: 'اختيار الهاشتاقات/الحسابات المستهدفة وبدء المتابعة الأولية', deliverable: 'قائمة الهاشتاقات/الحسابات المختارة',
+                  resources: [
+                    r('رهانات تحقيق الإثنوغرافيا الرقمية وآلية دراسة الجمهور الافتراضي', 'https://archives.univ-eloued.dz/items/340b31ce-094d-4602-8a0e-9037c5fd8c9b', 'paper')
+                  ] },
+                { topic: 'تقنيات الملاحظة ونظرية المكان الثالث', task: 'بدء كتابة fieldnotes تجريبية + ربطها بمفاهيم نظرية', deliverable: 'fieldnotes تجريبية مربوطة بنظرية المكان الثالث',
+                  resources: [
+                    r('المقهى كفضاء اجتماعي (مركز المعلومات ودعم اتخاذ القرار)', 'https://www.idsc.gov.eg/Article/details/11387', 'article'),
+                    r('The Third Place & Coffee Shops (Perfect Daily Grind)', 'https://perfectdailygrind.com/2021/06/the-third-place/', 'article', 'EN'),
+                    r('المكان الثالث (ويكيبيديا)', 'https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D9%85%D9%83%D8%A7%D9%86_%D8%A7%D9%84%D8%AB%D8%A7%D9%84%D8%AB', 'wiki'),
+                    r('علم اجتماع المكان (ويكيبيديا)', 'https://ar.wikipedia.org/wiki/%D8%B9%D9%84%D9%85_%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9_%D8%A7%D9%84%D9%85%D9%83%D8%A7%D9%86', 'wiki'),
+                    r('المكان الثالث.. مقاهٍ تُشبهنا! (جريدة البلاد)', 'https://www.albiladpress.com/posts/921210.html', 'article')
+                  ] },
+                { topic: 'الملاحظة الميدانية الفعلية', task: 'أسبوع ملاحظة ميدانية مركّزة + زيارة كافيه فعلي للملاحظة الحضورية المباشرة، مع ملاحظات يومية', deliverable: 'ملاحظات ميدانية يومية + ملاحظات زيارة الكافيه',
+                  resources: [] },
+                { topic: 'الترميز الموضوعي والاستهلاك كهوية', task: 'ترميز موضوعي للملاحظات المجمّعة وربطها بمفهوم رأس المال الثقافي', deliverable: 'جدول ترميز موضوعي مربوط بالنظرية',
+                  resources: [
+                    r('Cultural Capital Theory of Pierre Bourdieu (SimplyPsychology)', 'https://www.simplypsychology.org/cultural-capital-theory-of-pierre-bourdieu.html', 'article', 'EN'),
+                    r('رمزية المقهى في الفكر الاجتماعي المعاصر', 'https://www.idsc.gov.eg/Article/details/11366', 'article')
+                  ] },
+                { topic: 'كتابة التقرير الإثنوغرافي', task: 'كتابة تقرير متكامل: سؤال بحثي، وصف الحقل، النتائج، تأمل ختامي', deliverable: 'تقرير إثنوغرافي كامل',
+                  resources: [
+                    r('Coffee Culture, with Grazia Ting Deng (Uncommon Sense)', 'https://thesociologicalreview.org/podcasts/uncommon-sense/coffee-culture-with-grazia-ting-deng/', 'podcast', 'EN')
+                  ] }
+            ]
         }
+    };
+
+    // ---------- Helpers ----------
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const pct = (a, b) => b ? Math.round((a / b) * 100) : 0;
+
+    function allTasks() {
+        const out = [];
+        Object.keys(COURSES).forEach(ck => {
+            COURSES[ck].weeks.forEach((w, i) => {
+                out.push({
+                    id: ck + '-' + (i + 1), course: ck, wk: i + 1,
+                    weekLabel: WEEKS[i].label, weekId: WEEKS[i].id, phase: WEEKS[i].phase,
+                    topic: w.topic, task: w.task, deliverable: w.deliverable,
+                    resources: w.resources.map((res, j) => Object.assign({ rid: ck + '-' + (i + 1) + '-r' + j }, res))
+                });
+            });
+        });
+        return out;
+    }
+    const TASKS = allTasks();
+    const taskById = id => TASKS.find(t => t.id === id);
+
+    // ---------- State ----------
+    let state = loadState();
+    function loadState() {
+        try {
+            const s = JSON.parse(localStorage.getItem(STORE_KEY));
+            if (s && typeof s === 'object') return { tasks: s.tasks || {}, res: s.res || {}, evals: s.evals || {} };
+        } catch (e) { /* ignore */ }
+        return { tasks: {}, res: {}, evals: {} };
+    }
+    function saveState() {
+        try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+        catch (e) { toast('تعذّر الحفظ في هذا المتصفح'); }
+    }
+    const statusOf = id => (state.tasks[id] && state.tasks[id].status) || 'todo';
+
+    function toast(msg) {
+        const t = $('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(toast._h);
+        toast._h = setTimeout(() => t.classList.remove('show'), 2200);
     }
 
-    function saveEvaluation(e) {
-        e.preventDefault();
-        const evalData = {
-            week: document.getElementById('evalWeek').value,
-            q1: document.getElementById('q1').value,
-            q2: document.getElementById('q2').value,
-            q3: document.getElementById('q3').value,
-            date: new Date().toLocaleDateString('ar-SA')
+    function setStatus(id, s) {
+        state.tasks[id] = Object.assign({}, state.tasks[id], { status: s, ts: Date.now() });
+        saveState();
+        renderAll();
+    }
+
+    // ---------- Tabs ----------
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.toggle('active', el.dataset.tab === tab));
+        $(tab).classList.add('active');
+    }
+
+    // ---------- Term position ----------
+    function termPosition() {
+        const now = new Date(); now.setHours(0, 0, 0, 0);
+        const first = new Date(WEEKS[0].start + 'T00:00:00');
+        const last = new Date(WEEKS[WEEKS.length - 1].end + 'T23:59:59');
+        if (now < first) return { state: 'before', index: -1 };
+        if (now > new Date('2026-09-07T23:59:59')) return { state: 'after', index: -1 };
+        for (let i = 0; i < WEEKS.length; i++) {
+            const s = new Date(WEEKS[i].start + 'T00:00:00');
+            const e = new Date(WEEKS[i].end + 'T23:59:59');
+            if (now >= s && now <= e) return { state: 'during', index: i };
+        }
+        return { state: now <= last ? 'during' : 'after', index: WEEKS.length - 1 };
+    }
+
+    // ---------- Task card ----------
+    function taskCard(t, withActions) {
+        const st = statusOf(t.id);
+        let actions = '';
+        if (withActions) {
+            if (st === 'todo') actions = '<button class="btn-small" onclick="event.stopPropagation();setStatus(\'' + t.id + '\',\'doing\')">ابدأ</button>';
+            if (st === 'doing') actions = '<button class="btn-small" onclick="event.stopPropagation();setStatus(\'' + t.id + '\',\'done\')">أكملت</button>' +
+                '<button class="btn-small" onclick="event.stopPropagation();setStatus(\'' + t.id + '\',\'todo\')">رجوع</button>';
+            if (st === 'done') actions = '<button class="btn-small" onclick="event.stopPropagation();setStatus(\'' + t.id + '\',\'doing\')">إعادة فتح</button>';
+        }
+        const q = state.tasks[t.id] && state.tasks[t.id].quality;
+        return '<div class="task-card" onclick="openTask(\'' + t.id + '\')">' +
+            '<span class="task-tag tag-' + t.course + '">' + esc(COURSES[t.course].short) + '</span>' +
+            '<span class="task-tag tag-phase">' + esc(t.phase) + '</span>' +
+            '<div class="task-title">' + esc(t.task) + '</div>' +
+            '<div class="task-meta"><span><i class="fa-regular fa-calendar"></i> الأسبوع ' + t.wk + ' (' + esc(t.weekLabel) + ')</span>' +
+            (q ? '<span style="color:#facc15">' + '★'.repeat(q) + '</span>' : '') + '</div>' +
+            (actions ? '<div class="task-actions">' + actions + '</div>' : '') +
+            '</div>';
+    }
+
+    // ---------- Renderers ----------
+    function renderHome() {
+        const total = TASKS.length;
+        const done = TASKS.filter(t => statusOf(t.id) === 'done').length;
+        $('overall-text').textContent = done + ' / ' + total + ' مهمة (' + pct(done, total) + '%)';
+        $('overall-fill').style.width = pct(done, total) + '%';
+
+        $('home-courses').innerHTML = Object.keys(COURSES).map(ck => {
+            const c = COURSES[ck];
+            const ct = TASKS.filter(t => t.course === ck);
+            const cd = ct.filter(t => statusOf(t.id) === 'done').length;
+            return '<div class="course-card ' + ck + '">' +
+                '<div class="course-title"><span>' + esc(c.name) + '</span><i class="' + c.icon + '" style="color:' + c.color + '"></i></div>' +
+                '<div class="course-outputs"><strong>المخرجات:</strong><br>' + c.outcomes.map(o => '• ' + esc(o)).join('<br>') + '</div>' +
+                '<div class="chips">' + c.topics.map(tp => '<span class="chip">' + esc(tp) + '</span>').join('') + '</div>' +
+                '<div class="progress-bar-bg"><div class="progress-fill" style="width:' + pct(cd, ct.length) + '%"></div></div>' +
+                '<div class="progress-text"><span>نسبة الإنجاز (' + cd + ' من ' + ct.length + ' أسابيع)</span><span>' + pct(cd, ct.length) + '%</span></div>' +
+                '</div>';
+        }).join('');
+
+        const pos = termPosition();
+        let list = [], title = 'مهام هذا الأسبوع', note = '';
+        if (pos.state === 'during') {
+            const w = WEEKS[pos.index];
+            title = 'مهام هذا الأسبوع (الأسبوع ' + w.n + ' — ' + w.phase + ')';
+            list = TASKS.filter(t => t.wk === w.n);
+        } else if (pos.state === 'before') {
+            title = 'مهام الأسبوع الأول';
+            note = 'لم يبدأ الفصل بعد (يبدأ 27 يوليو 2026).';
+            list = TASKS.filter(t => t.wk === 1);
+        } else {
+            title = 'مهام لم تكتمل بعد';
+            note = 'انتهت مدة الفصل (7 سبتمبر 2026). هذه المهام المتبقية غير المكتملة.';
+            list = TASKS.filter(t => statusOf(t.id) !== 'done').slice(0, 6);
+        }
+        $('current-week-title').textContent = title;
+        $('term-note').innerHTML = note ? '<div class="term-note">' + esc(note) + '</div>' : '';
+        $('dashboard-tasks-preview').innerHTML = list.length
+            ? list.map(t => taskCard(t, true)).join('')
+            : '<div class="empty-note">كل المهام مكتملة.</div>';
+
+        const notes = TASKS
+            .map(t => ({ t, s: state.tasks[t.id] }))
+            .filter(x => x.s && x.s.note && x.s.note.trim())
+            .sort((a, b) => (b.s.ts || 0) - (a.s.ts || 0))
+            .slice(0, 3);
+        $('recent-notes').innerHTML = notes.length
+            ? notes.map(x => '<div class="saved-eval"><b>' + esc(COURSES[x.t.course].short) + ' — الأسبوع ' + x.t.wk + ':</b><br>' + esc(x.s.note) + '</div>').join('')
+            : '<div class="empty-note">لا توجد ملاحظات تأمّلية بعد. افتحي أي مهمة واكتبي ملاحظتك بعد إنجازها.</div>';
+    }
+
+    let selectedCourse = 'novel';
+    function renderCourses() {
+        $('course-pills').innerHTML = Object.keys(COURSES).map(ck =>
+            '<button class="pill ' + (ck === selectedCourse ? 'active' : '') + '" onclick="selectCourse(\'' + ck + '\')">' + esc(COURSES[ck].short) + '</button>').join('');
+        const c = COURSES[selectedCourse];
+        let html = '<div class="course-info"><h3>' + esc(c.name) + '</h3>' +
+            '<h3 style="color:var(--text-muted);font-size:.9rem">مخرجات التعلم</h3><ul>' + c.outcomes.map(o => '<li>' + esc(o) + '</li>').join('') + '</ul>' +
+            '<h3 style="color:var(--text-muted);font-size:.9rem">مواضيع المادة</h3><ul>' + c.topics.map(o => '<li>' + esc(o) + '</li>').join('') + '</ul></div>';
+        TASKS.filter(t => t.course === selectedCourse).forEach(t => {
+            const st = statusOf(t.id);
+            html += '<div class="week-card">' +
+                '<div class="week-head"><strong>الأسبوع ' + t.wk + ' — ' + esc(t.weekLabel) + ' <span class="task-tag tag-phase">' + esc(t.phase) + '</span></strong>' +
+                '<span class="status-pill st-' + st + '">' + STATUS[st] + '</span></div>' +
+                '<div class="week-line"><b>الموضوع:</b> ' + esc(t.topic) + '</div>' +
+                '<div class="week-line"><b>المهمة:</b> ' + esc(t.task) + '</div>' +
+                '<div class="week-line"><b>المخرج المطلوب:</b> ' + esc(t.deliverable) + '</div>' +
+                '<div class="week-line"><b>المصادر:</b></div>' +
+                (t.resources.length ? t.resources.map(resRow).join('') : '<div class="empty-note">لا مرجع جديد هذا الأسبوع، وقت تطبيق وتسليم.</div>') +
+                '<div class="task-actions"><button class="btn-small" onclick="openTask(\'' + t.id + '\')">تفاصيل وتقييم المهمة</button></div>' +
+                '</div>';
+        });
+        $('course-view').innerHTML = html;
+    }
+    function selectCourse(ck) { selectedCourse = ck; renderCourses(); }
+
+    function resRow(res) {
+        const read = !!state.res[res.rid];
+        return '<div class="resource-row ' + (read ? 'read' : '') + '">' +
+            '<input type="checkbox" ' + (read ? 'checked' : '') + ' onchange="toggleRes(\'' + res.rid + '\',this.checked)" title="تمت القراءة/المشاهدة">' +
+            '<a class="resource-link" href="' + esc(res.url) + '" target="_blank" rel="noopener noreferrer">' +
+            '<i class="' + TYPE_ICONS[res.type] + '"></i><span>' + esc(res.title) + ' <small style="color:var(--text-muted)">(' + TYPES[res.type] + ')</small></span>' +
+            '<span class="lang-tag">' + esc(res.lang) + '</span></a></div>';
+    }
+    function toggleRes(rid, val) {
+        if (val) state.res[rid] = true; else delete state.res[rid];
+        saveState();
+        renderCourses();
+        renderResources();
+    }
+
+    function renderBoard() {
+        ['todo', 'doing', 'done'].forEach(s => {
+            const list = TASKS.filter(t => statusOf(t.id) === s);
+            $('count-' + s).textContent = list.length;
+            $('col-' + s).innerHTML = list.length ? list.map(t => taskCard(t, true)).join('') : '<div class="empty-note">لا مهام</div>';
+        });
+    }
+
+    function fillSelect(id, options) {
+        const el = $(id);
+        if (el.options.length) return;
+        el.innerHTML = options.map(o => '<option value="' + esc(o[0]) + '">' + esc(o[1]) + '</option>').join('');
+    }
+    function initFilters() {
+        const courseOpts = [['all', 'كل المواد']].concat(Object.keys(COURSES).map(k => [k, COURSES[k].short]));
+        fillSelect('f-course', courseOpts);
+        fillSelect('f-phase', [['all', 'كل المراحل'], ['تعلّم', 'تعلّم'], ['مشروع', 'مشروع'], ['مكثف', 'مكثف'], ['تخرج', 'تخرج']]);
+        fillSelect('f-status', [['all', 'كل الحالات'], ['todo', STATUS.todo], ['doing', STATUS.doing], ['done', STATUS.done]]);
+        fillSelect('r-course', courseOpts);
+        fillSelect('r-type', [['all', 'كل الأنواع']].concat(Object.keys(TYPES).map(k => [k, TYPES[k]])));
+        fillSelect('r-read', [['all', 'الكل'], ['unread', 'لم تُقرأ بعد'], ['read', 'تمت قراءتها']]);
+        fillSelect('evalWeek', WEEKS.map(w => [w.id, 'الأسبوع ' + w.n + ' (' + w.label + ') — ' + w.phase]));
+        ['rub1', 'rub2', 'rub3'].forEach(id => fillSelect(id, [['', 'اختاري...'], ['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5']]));
+    }
+
+    function renderTable() {
+        const fc = $('f-course').value, fp = $('f-phase').value, fs = $('f-status').value;
+        const rows = TASKS.filter(t =>
+            (fc === 'all' || t.course === fc) && (fp === 'all' || t.phase === fp) && (fs === 'all' || statusOf(t.id) === fs));
+        $('tasks-table-body').innerHTML = rows.length ? rows.map(t => {
+            const st = statusOf(t.id);
+            return '<tr onclick="openTask(\'' + t.id + '\')">' +
+                '<td><span class="task-tag tag-' + t.course + '" style="margin:0">' + esc(COURSES[t.course].short) + '</span></td>' +
+                '<td>' + t.wk + '</td><td>' + esc(t.weekLabel) + '</td><td>' + esc(t.phase) + '</td>' +
+                '<td>' + esc(t.topic) + '</td><td>' + esc(t.task) + '</td><td>' + esc(t.deliverable) + '</td>' +
+                '<td><span class="status-pill st-' + st + '">' + STATUS[st] + '</span></td></tr>';
+        }).join('') : '<tr><td colspan="8" class="empty-note">لا نتائج</td></tr>';
+    }
+
+    function renderResources() {
+        const fc = $('r-course').value, ft = $('r-type').value, fr = $('r-read').value;
+        let html = '';
+        Object.keys(COURSES).forEach(ck => {
+            if (fc !== 'all' && fc !== ck) return;
+            const c = COURSES[ck];
+            const all = TASKS.filter(t => t.course === ck).reduce((a, t) => a.concat(t.resources), []);
+            const readCount = all.filter(x => state.res[x.rid]).length;
+            let inner = '';
+            TASKS.filter(t => t.course === ck).forEach(t => {
+                const list = t.resources.filter(x =>
+                    (ft === 'all' || x.type === ft) &&
+                    (fr === 'all' || (fr === 'read' ? !!state.res[x.rid] : !state.res[x.rid])));
+                if (!list.length) return;
+                inner += '<h4>الأسبوع ' + t.wk + ' — ' + esc(t.topic) + '</h4>' + list.map(resRow).join('');
+            });
+            html += '<div class="resource-group"><h3><i class="' + c.icon + '" style="color:' + c.color + '"></i> ' + esc(c.name) + '</h3>' +
+                '<div class="empty-note" style="padding-top:0">تمت قراءة ' + readCount + ' من ' + all.length + '</div>' +
+                (inner || '<div class="empty-note">لا مصادر مطابقة للفلتر.</div>') + '</div>';
+        });
+        $('resources-container').innerHTML = html;
+    }
+
+    // ---------- Evaluation ----------
+    function loadEvalForm() {
+        const wid = $('evalWeek').value;
+        const w = WEEKS.find(x => x.id === wid);
+        const e = state.evals[wid] || {};
+        $('q1').value = e.q1 || ''; $('q2').value = e.q2 || ''; $('q3').value = e.q3 || '';
+        $('rub1').value = e.rub1 || ''; $('rub2').value = e.rub2 || ''; $('rub3').value = e.rub3 || '';
+        const show = RUBRIC_PHASES.indexOf(w.phase) !== -1;
+        $('rubric').classList.toggle('show', show);
+        ['rub1', 'rub2', 'rub3'].forEach(id => { $(id).required = show; });
+    }
+    function saveEvaluation(ev) {
+        ev.preventDefault();
+        const wid = $('evalWeek').value;
+        const w = WEEKS.find(x => x.id === wid);
+        const e = { q1: $('q1').value.trim(), q2: $('q2').value.trim(), q3: $('q3').value.trim(), ts: Date.now() };
+        if (RUBRIC_PHASES.indexOf(w.phase) !== -1) { e.rub1 = $('rub1').value; e.rub2 = $('rub2').value; e.rub3 = $('rub3').value; }
+        state.evals[wid] = e;
+        saveState();
+        renderSavedEvals();
+        toast('تم حفظ تقييم الأسبوع ' + w.n);
+    }
+    function renderSavedEvals() {
+        const items = WEEKS.filter(w => state.evals[w.id]);
+        $('saved-evals').innerHTML = items.length ? items.map(w => {
+            const e = state.evals[w.id];
+            return '<div class="saved-eval"><b>الأسبوع ' + w.n + ' (' + esc(w.label) + ')</b><br>' +
+                '<b>أُنجز:</b> ' + esc(e.q1) + '<br><b>العوائق:</b> ' + esc(e.q2) + '<br><b>التعديلات:</b> ' + esc(e.q3) +
+                (e.rub1 ? '<br><b>الالتزام بالجدول:</b> ' + esc(e.rub1) + '/5 — <b>جودة المخرج:</b> ' + esc(e.rub2) + '/5 — <b>الرضا:</b> ' + esc(e.rub3) + '/5' : '') +
+                '</div>';
+        }).join('') : '<div class="empty-note">لا تقييمات محفوظة بعد.</div>';
+    }
+
+    // ---------- Task modal ----------
+    let modalQuality = 0;
+    function openTask(id) {
+        const t = taskById(id);
+        const s = state.tasks[id] || {};
+        modalQuality = s.quality || 0;
+        const st = statusOf(id);
+        $('modalBody').innerHTML =
+            '<h3>' + esc(COURSES[t.course].short) + ' — الأسبوع ' + t.wk + ' (' + esc(t.phase) + ')</h3>' +
+            '<div class="week-line"><b>التاريخ:</b> ' + esc(t.weekLabel) + '</div>' +
+            '<div class="week-line"><b>الموضوع:</b> ' + esc(t.topic) + '</div>' +
+            '<div class="week-line"><b>المهمة:</b> ' + esc(t.task) + '</div>' +
+            '<div class="week-line" style="margin-bottom:14px"><b>المخرج المطلوب:</b> ' + esc(t.deliverable) + '</div>' +
+            (t.resources.length ? '<span class="modal-label">المصادر</span>' + t.resources.map(resRow).join('') : '') +
+            '<span class="modal-label" style="margin-top:14px">الحالة</span>' +
+            '<select id="m-status">' + Object.keys(STATUS).map(k => '<option value="' + k + '"' + (k === st ? ' selected' : '') + '>' + STATUS[k] + '</option>').join('') + '</select>' +
+            '<span class="modal-label">تقييم ذاتي لجودة المخرج</span>' +
+            '<div class="stars" id="m-stars">' + [1, 2, 3, 4, 5].map(n => '<button type="button" data-n="' + n + '" class="' + (n <= modalQuality ? 'on' : '') + '" onclick="setQuality(' + n + ')">★</button>').join('') + '</div>' +
+            '<span class="modal-label">ملاحظة تأمّلية (سطر أو سطران بعد الإنجاز)</span>' +
+            '<textarea id="m-note" rows="3" placeholder="وش تعلمتي؟ وش صعب؟ وش ربط بين المواد؟">' + esc(s.note || '') + '</textarea>' +
+            '<div class="modal-actions"><button class="btn-submit" onclick="saveTaskModal(\'' + id + '\')">حفظ</button><button class="btn-ghost" onclick="closeModal()">إغلاق</button></div>';
+        $('modalBg').classList.add('show');
+    }
+    function setQuality(n) {
+        modalQuality = (modalQuality === n) ? 0 : n;
+        document.querySelectorAll('#m-stars button').forEach(b => b.classList.toggle('on', Number(b.dataset.n) <= modalQuality));
+    }
+    function saveTaskModal(id) {
+        state.tasks[id] = Object.assign({}, state.tasks[id], {
+            status: $('m-status').value,
+            quality: modalQuality || 0,
+            note: $('m-note').value.trim(),
+            ts: Date.now()
+        });
+        saveState();
+        closeModal();
+        renderAll();
+        toast('تم الحفظ');
+    }
+    function closeModal() { $('modalBg').classList.remove('show'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ---------- Backup ----------
+    function exportData() {
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'personal-curriculum-backup.json';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(a.href);
+    }
+    function importData(ev) {
+        const f = ev.target.files[0];
+        if (!f) return;
+        const rd = new FileReader();
+        rd.onload = () => {
+            try {
+                const s = JSON.parse(rd.result);
+                state = { tasks: s.tasks || {}, res: s.res || {}, evals: s.evals || {} };
+                saveState();
+                renderAll();
+                loadEvalForm();
+                toast('تم استيراد البيانات');
+            } catch (e) { toast('ملف غير صالح'); }
         };
-        
-        let allEvals = JSON.parse(localStorage.getItem('august_dashboard_evals')) || [];
-        allEvals.push(evalData);
-        localStorage.setItem('august_dashboard_evals', JSON.stringify(allEvals));
-        
-        alert('تم حفظ التقييم الأسبوعي بنجاح!');
-        document.getElementById('evalForm').reset();
+        rd.readAsText(f);
+        ev.target.value = '';
     }
 
-    // Initialize
+    // ---------- Init ----------
+    function renderAll() {
+        renderHome();
+        renderCourses();
+        renderBoard();
+        renderTable();
+        renderResources();
+        renderSavedEvals();
+    }
+    initFilters();
     renderAll();
+    loadEvalForm();
 </script>
-
 </body>
 </html>
